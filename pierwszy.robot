@@ -1,8 +1,15 @@
 *** Settings ***
 Library   pyta.py
+Library   SSHLibrary
+
 
 *** Variables ***
 ${TROSZKE_INACZEJ}   chcialem zeby mi wypisal tenze teks i zobacze co wyrzuci
+${HOST}   localhost
+${LOGIN}   kris
+${HASLO}   ${SPACE}
+
+
 
 *** Test Cases ***
 kinder test dnia dzisiejszego
@@ -19,8 +26,29 @@ Sprawdzam test z pliku pyta.py ktory jest w tym samym folderze i to wlasnie test
    ${jakas_zmienna_jakas_nazwa}=   polacz   ala   kota
    Should Be Equal   ${jakas_zmienna_jakas_nazwa}   ala ma kota
 
+Test SSH localhost
+    Nawiazuje polaczenie z serverem
+
+    Autoryzacja, wpisuje haslo, logujemy sie do komputera zewnetrzenego
+
+    Wpisuje uname -a, aby uzyskac informacje na temat uzyskanego polaczenia
+
+    Zamknij polaczenia
 
 *** Keywords ***
 Wyswietlanie napisu
    [Arguments]   ${tekst_jakis}
    Log to console   ${tekst_jakis}
+
+Nawiazuje polaczenie z serverem
+   Open Connection   ${HOST}
+
+Autoryzacja, wpisuje haslo, logujemy sie do komputera zewnetrzenego
+   Login   ${LOGIN}   ${HASLO}
+
+Wpisuje uname -a, aby uzyskac informacje na temat uzyskanego polaczenia
+   ${output}=   Execute Command   uname -a
+   Should Contain   ${output}   GNU/Linux
+
+Zamknij polaczenia
+   Close Connection
