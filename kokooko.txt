@@ -1,0 +1,436 @@
+python -m nsm all
+
+vim mykeywords.robot
+
+webpage check
+        [Arguments]  ${slowo}
+        ${result}=  Run Keyword and return status  Page Should Contain  ${slowo}
+        ${result}=  set variable if  ${result}   OK  NOTOK
+        [Return]  ${result}
+
+
+robot english.robot
+
+
+#########
+${BROWSER}   Firefox
+${uzytkownik}    testerwsb_t1
+${haslo}   adam1234
+${zly_uzytkownik}   ania
+${zle_haslo}   haslo
+${url_adress}   https://profil.wp.pl/login.html?zaloguj=poczta
+${selektor_uytkownika}   //*[@id="login"]
+${selektor_hasla}   //*[@id="password"]
+${selektor_btn}   //*[@id="btnSubmit"]
+
+*** Test Cases ***
+Test 1
+   Log to console   Jakis tekst
+
+Test 2
+   Log to console   ${napis}
+
+Test 3
+   Wyswietl napis   Cdn nauki
+
+Test 4
+   ${zmienna}=   polacz   Ala   kota
+   Should Be Equal   ${zmienna}   Ala ma kota
+
+Test 5 - Zalogowanie sie na zdalny komputer z wykorzystaniem komendy uname -a i sprawdzenie zawartosci
+   logowanie do zdalnego komputera
+   autoryzacja uzytkownika i hasla
+   komenda uname-a i sprawdzenie
+   zakonczenie polaczenia
+
+Test 6 -Test dzialania internetu/serwera za pomoca ping
+   logowanie do zdalnego komputera
+   autoryzacja uzytkownika i hasla
+   sprawdzc czy internet dziala
+   zakonczenie polaczenia
+
+Test 7 -Sprawdzenie ilosci core w danym urzadzeniu zdalnym
+    logowanie do zdalnego komputera
+    autoryzacja uzytkownika i hasla
+    liczba procesorow
+    zakonczenie polaczenia
+
+Test 8
+   ${x}=   Setup   localhost
+   ${x1}=  Evaluate   pprint.pformat($x)  modules=pprint
+   #log to console   ${x1}
+   ${y}=     get from dictionary    ${x}   ansible_facts
+   ${y1}=    get from dictionary    ${y}   ansible_distribution
+   log to console   ${y1}
+   Should Be Equal   Ubuntu   ${y1}
+
+Test 9 Poprawne logowanie na poczte wp.pl
+   [tags]   sel
+   otworzenie przegladarki i stony wp.pl
+   zaloguj sie uzywajac poprawnego loginu i hasla
+   sprawdzic czy wystepuje slowo "odebrane"
+   zamkniecie przegladarki
+
+Test 10 Bledne logowanie na poczte wp.pl - bledny uzytkownik
+   [tags]   sel
+   otworzenie przegladarki i stony wp.pl
+   zaloguj sie uzywajac niepoprawnego loginu
+   sprawdzic czy NIE wystepuje slowo "odebrane"
+   zamkniecie przegladarki
+
+Test 10 Bledne logowanie na poczte wp.pl - bledny uzytkownik
+   [tags]   sel
+   otworzenie przegladarki i stony wp.pl
+   zaloguj sie uzywajac niepoprawnego hasla
+   sprawdzic czy NIE wystepuje slowo "odebrane"
+   zamkniecie przegladarki
+
+*** Keywords ***
+Wyswietl napis
+   [Arguments]   ${mgs}
+   Log to console   ${mgs}
+
+logowanie do zdalnego komputera
+   Open Connection   ${HOST}
+
+autoryzacja uzytkownika i hasla
+   Login   ${USERNAME}    ${PASSWORD}
+
+komenda uname-a i sprawdzenie
+   ${output}=   Execute Command   uname -a
+   Should Contain    ${output}   GNU/Linux
+
+sprawdzc czy internet dziala
+   ${output2}=   Execute Command   ping -c1 8.8.8.8
+   Should Not Contain   ${output2}   100% packet loss
+
+liczba procesorow
+   ${output3}=   Execute Command   cat /proc/cpuinfo | grep processor | wc -l
+   Should Be Equal   4   ${output3}
+
+
+zakonczenie polaczenia
+   Close Connection
+
+otworzenie przegladarki i stony wp.pl
+   Open Browser   about:blank   ${BROWSER}
+   Go To   ${url_adress}
+
+zaloguj sie uzywajac poprawnego loginu i hasla
+   Sleep   10
+   Input Text   ${selektor_uytkownika}   ${uzytkownik}
+   Input Text   ${selektor_hasla}   ${haslo}
+   Click Button   ${selektor_btn}
+   Sleep   10
+
+zaloguj sie uzywajac niepoprawnego loginu
+   Sleep   10
+   Input Text   ${selektor_uytkownika}   ${zly_uzytkownik}
+   Input Text   ${selektor_hasla}   ${haslo}
+   Click Button   ${selektor_btn}
+   Sleep   10
+
+zaloguj sie uzywajac niepoprawnego hasla
+  Sleep   10
+  Input Text   ${selektor_uytkownika}   ${uzytkownik}
+  Input Text   ${selektor_hasla}   ${zle_haslo}
+  Click Button   ${selektor_btn}
+  Sleep   10
+
+sprawdzic czy wystepuje slowo "odebrane"
+   Page Should Contain   Odebrane
+   Capture Page Screenshot
+
+sprawdzic czy NIE wystepuje slowo "odebrane"
+   Page Should Not Contain   Odebrane
+   Capture Page Screenshot
+
+zamkniecie przegladarki
+   Close All Browsers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+odtad moje
+
+
+python -m nsm all
+
+vim mykeywords.robot
+
+webpage check
+        [Arguments]  ${slowo}
+        ${result}=  Run Keyword and return status  Page Should Contain  ${slowo}
+        ${result}=  set variable if  ${result}   OK  NOTOK
+        [Return]  ${result}
+
+
+robot english.robot
+
+
+#########
+${BROWSER}   Firefox
+${uzytkownik}    testerwsb_t1
+${haslo}   adam1234
+${zly_uzytkownik}   ania
+${zle_haslo}   haslo
+${url_adress}   https://profil.wp.pl/login.html?zaloguj=poczta
+${selektor_uytkownika}   //*[@id="login"]
+${selektor_hasla}   //*[@id="password"]
+${selektor_btn}   //*[@id="btnSubmit"]
+
+*** Test Cases ***
+Test 1
+   Log to console   Jakis tekst
+
+Test 2
+   Log to console   ${napis}
+
+Test 3
+   Wyswietl napis   Cdn nauki
+
+Test 4
+   ${zmienna}=   polacz   Ala   kota
+   Should Be Equal   ${zmienna}   Ala ma kota
+
+Test 5 - Zalogowanie sie na zdalny komputer z wykorzystaniem komendy uname -a i sprawdzenie zawartosci
+   logowanie do zdalnego komputera
+   autoryzacja uzytkownika i hasla
+   komenda uname-a i sprawdzenie
+   zakonczenie polaczenia
+
+Test 6 -Test dzialania internetu/serwera za pomoca ping
+   logowanie do zdalnego komputera
+   autoryzacja uzytkownika i hasla
+   sprawdzc czy internet dziala
+   zakonczenie polaczenia
+
+Test 7 -Sprawdzenie ilosci core w danym urzadzeniu zdalnym
+    logowanie do zdalnego komputera
+    autoryzacja uzytkownika i hasla
+    liczba procesorow
+    zakonczenie polaczenia
+
+Test 8
+   ${x}=   Setup   localhost
+   ${x1}=  Evaluate   pprint.pformat($x)  modules=pprint
+   #log to console   ${x1}
+   ${y}=     get from dictionary    ${x}   ansible_facts
+   ${y1}=    get from dictionary    ${y}   ansible_distribution
+   log to console   ${y1}
+   Should Be Equal   Ubuntu   ${y1}
+
+Test 9 Poprawne logowanie na poczte wp.pl
+   [tags]   sel
+   otworzenie przegladarki i stony wp.pl
+   zaloguj sie uzywajac poprawnego loginu i hasla
+   sprawdzic czy wystepuje slowo "odebrane"
+   zamkniecie przegladarki
+
+Test 10 Bledne logowanie na poczte wp.pl - bledny uzytkownik
+   [tags]   sel
+   otworzenie przegladarki i stony wp.pl
+   zaloguj sie uzywajac niepoprawnego loginu
+   sprawdzic czy NIE wystepuje slowo "odebrane"
+   zamkniecie przegladarki
+
+Test 10 Bledne logowanie na poczte wp.pl - bledny uzytkownik
+   [tags]   sel
+   otworzenie przegladarki i stony wp.pl
+   zaloguj sie uzywajac niepoprawnego hasla
+   sprawdzic czy NIE wystepuje slowo "odebrane"
+   zamkniecie przegladarki
+
+*** Keywords ***
+Wyswietl napis
+   [Arguments]   ${mgs}
+   Log to console   ${mgs}
+
+logowanie do zdalnego komputera
+   Open Connection   ${HOST}
+
+autoryzacja uzytkownika i hasla
+   Login   ${USERNAME}    ${PASSWORD}
+
+komenda uname-a i sprawdzenie
+   ${output}=   Execute Command   uname -a
+   Should Contain    ${output}   GNU/Linux
+
+sprawdzc czy internet dziala
+   ${output2}=   Execute Command   ping -c1 8.8.8.8
+   Should Not Contain   ${output2}   100% packet loss
+
+liczba procesorow
+   ${output3}=   Execute Command   cat /proc/cpuinfo | grep processor | wc -l
+   Should Be Equal   4   ${output3}
+
+
+zakonczenie polaczenia
+   Close Connection
+
+otworzenie przegladarki i stony wp.pl
+   Open Browser   about:blank   ${BROWSER}
+   Go To   ${url_adress}
+
+zaloguj sie uzywajac poprawnego loginu i hasla
+   Sleep   10
+   Input Text   ${selektor_uytkownika}   ${uzytkownik}
+   Input Text   ${selektor_hasla}   ${haslo}
+   Click Button   ${selektor_btn}
+   Sleep   10
+
+zaloguj sie uzywajac niepoprawnego loginu
+   Sleep   10
+   Input Text   ${selektor_uytkownika}   ${zly_uzytkownik}
+   Input Text   ${selektor_hasla}   ${haslo}
+   Click Button   ${selektor_btn}
+   Sleep   10
+
+zaloguj sie uzywajac niepoprawnego hasla
+  Sleep   10
+  Input Text   ${selektor_uytkownika}   ${uzytkownik}
+  Input Text   ${selektor_hasla}   ${zle_haslo}
+  Click Button   ${selektor_btn}
+  Sleep   10
+
+sprawdzic czy wystepuje slowo "odebrane"
+   Page Should Contain   Odebrane
+   Capture Page Screenshot
+
+sprawdzic czy NIE wystepuje slowo "odebrane"
+   Page Should Not Contain   Odebrane
+   Capture Page Screenshot
+
+zamkniecie przegladarki
+   Close All Browsers
+   
+ ##########
+ DO PLIKU MYKEWORDS>
+ ##########
+ 
+ 
+ *** Settings ***
+Resource  requirements.robot
+Library   SeleniumLibrary
+
+*** Variables ***
+${BROWSER}   Firefox
+${selektor_uytkownika}   //*[@id="login"]
+${selektor_hasla}   //*[@id="password"]
+${selektor_btn}   //*[@id="btnSubmit"]
+
+*** Keywords ***
+${page} setup
+  requirements
+  Open Browser   about:blank   ${BROWSER}
+  Go To   https://profil.wp.pl/login.html?zaloguj=poczta
+
+${page} teardown
+	Close All Browsers
+
+credentials
+	Log to console  wyslalem dobre cred
+        [Return]  testerwsb_t1   adam1234
+
+bad credentials
+	Log to console  wyslalem zle cred
+	[Return]  baduser  badpass
+
+logged
+	Log to console  szukaj Odebrane
+	[Return]  Odebrane
+
+
+Enter Credentials
+	[Arguments]  ${user}  ${pass}
+	Sleep   10
+	Input Text   ${selektor_uytkownika}   ${user}
+	Input Text   ${selektor_hasla}   ${pass}
+	Click Button   ${selektor_btn}
+	Sleep   10
+
+webpage check
+        [Arguments]  ${slowo}
+        ${result}=  Run Keyword and return status  Page Should Contain  ${slowo}
+        ${result}=  set variable if  ${result}   OK  NOTOK
+        [Return]  ${result}
+        
+        
+##########
+DO PLIKU REQUIREMENTS
+##########
+
+
+
+
+*** Variables ***
+#${ansible_password}  XXXXXXX
+${ansible_become_password}   twojehaslo
+${ansible_user}   twojlogin
+${DBHost}  localhost
+${DBName}  w3schools
+${DBUser}  XXXXXX
+${DBPass}  XXXXXX
+${DBPort}  3306
+${DBFile}  w3schools.sql
+${Furl}    https://raw.githubusercontent.com/AndrejPHP/w3schools-database/master/w3schools.sql
+${gr}      /etc/apt/sources.list.d/google-chrome.list
+${grep}    http://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/
+#${chrome_version}  False
+${chrome_version}  google-chrome-stable_81.0.4044.138-1_amd64.deb
+${chd81}  http://launchpadlibrarian.net/478575933/chromium-chromedriver_81.0.4044.138-0ubuntu0.18.04.1_amd64.deb
+
+
+*** Settings ***
+Library  Impansible
+library  Collections
+library  OperatingSystem
+library  String
+#Library  DatabaseLibrary
+
+*** Keywords ***
+Requirements
+	No Operation
+	The Operating System should be Ubuntu
+	The Firefox browser should be installed if needed
+	The Geckodriver should be installed if needed
+	The google repo should be available
+	The Chrome should be installed if needed
+	The Chromedriver should be installed if needed
+	#The MySQL server should be installed
+	#Python should have MySQL support
+	#The MySQL user have all privileges
+	#Mysql should have no database imported
+	#Mysql should have database imported
+
+ 
+ 
+ 
+ 
+robot -v BROWSER:Headlesschrome polish.robot
+
+
+kilka wersji jezykowych, mozna brac rozne, mozna brac english,mozna cos tam 
+sa to dokladnie to same tesy, wszystko jest w keywordach pochowane, czy polski czy english to odwoluje sie do tych samych keyword
+

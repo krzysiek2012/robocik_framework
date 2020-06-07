@@ -4,7 +4,7 @@ Library   SSHLibrary
 Library   Collections
 Library   Impansible
 Library   SeleniumLibrary
-
+Suite Teardown   Close All Browsers
 
 #Selenium2Library to jest stare jakies, aktualnie po prostu SeleniumLibrary
 
@@ -132,6 +132,17 @@ Loguje sie do konta poczty wp
 
 Sprawdzic czy poprawnie sie zalogowalem na strone poczty
    Page Should Contain   Odebrane
+   Capture Page Screenshot
+
+Loguje sie do konta poczty wp ZLEE
+   sleep   5
+   Input Text   ${POLE eMAIL}   ${USER URL ZLEE}
+   Input Text   ${POLE HASLO}   ${USER HASLO ZLEE}
+   Click button   ${ZALOGUJ SIE}
+   sleep   5
+
+Sprawdzic czy niepoprawnie
+   Page Should Not Contain   Odebrane
 
 Zamknij wszystko
    Close All Browsers
