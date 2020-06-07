@@ -60,8 +60,8 @@ Wpisuje uname -a, aby uzyskac informacje na temat uzyskanego polaczenia
    Should Contain   ${output}   GNU/Linux
 
 Wpisuje funkcje ping, aby uzyskac informacje na temat uzyskanego polaczenia
-   ${output}=   Execute Command   ping -c1 8.8.8.9
-   Should Contain   ${output}   100% packet loss
+   ${output}=   Execute Command   ping -c1 8.8.8.8
+   Should Not Contain   ${output}   100% packet loss
 
 Zamknij polaczenia
    Close Connection
