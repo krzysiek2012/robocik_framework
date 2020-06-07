@@ -13,9 +13,16 @@ Library   SeleniumLibrary
 ${TROSZKE_INACZEJ}   chcialem zeby mi wypisal tenze teks i zobacze co wyrzuci
 ${HOST}   localhost
 ${LOGIN}   kris
-${HASLO}   jakies_haslo
-${ansible_become_password}   jakies_haslo
+${HASLO}   haslo_ubu
+${ansible_become_password}   haslo_ubu
 ${ansible_user}   kris
+${BROWSER}   Firefox
+${ADRES URL}   https://poczta.wp.pl
+${USER URL}   testerwsb_t1
+${USER HASLO}   adam1234
+${POLE eMAIL}   //*[@id="login"]
+${POLE HASLO}   //*[@id="password"]
+${ZALOGUJ SIE}   //*[@id="btnSubmit"]
 
 *** Test Cases ***
 kinder test dnia dzisiejszego
@@ -71,12 +78,12 @@ Przypadek testowy number8
    Should Be Equal   ${y1}   Ubuntu
 
 Wirtualna Polska, testowanie
-   1 Otwieram przegladarke
-   2 Wchodze na strone poczty wp.pl
-   3 Loguje sie do konta poczty wp
-   4 Wpisuje haslo
-   5 Sprawdzic czy poprawnie sie zalogowalem na strone poczty
-   6 Zamknij wszystko
+   [tags]   sel
+   Otwieram przegladarke
+   Wchodze na strone poczty wp.pl
+   Loguje sie do konta poczty wp
+   Sprawdzic czy poprawnie sie zalogowalem na strone poczty
+   Zamknij wszystko
 
 
 *** Keywords ***
@@ -108,3 +115,23 @@ Wpisuje /proc/cpuinfo/ i korzystam z grepa przy okazji
 
 Zamknij polaczenia
    Close Connection
+
+
+Otwieram przegladarke
+   Open Browser   about:blank   ${BROWSER}
+
+Wchodze na strone poczty wp.pl
+   Go To   ${ADRES URL}
+
+Loguje sie do konta poczty wp
+   sleep   5
+   Input Text   ${POLE eMAIL}   ${USER URL}
+   Input Text   ${POLE HASLO}   ${USER HASLO}
+   Click button   ${ZALOGUJ SIE}
+   sleep   5
+
+Sprawdzic czy poprawnie sie zalogowalem na strone poczty
+   Page Should Contain   Odebrane
+
+Zamknij wszystko
+   Close All Browsers
