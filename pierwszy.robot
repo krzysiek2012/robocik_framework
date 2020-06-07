@@ -1,15 +1,16 @@
 *** Settings ***
 Library   pyta.py
 Library   SSHLibrary
-
+Library   Collections
+Library   Impansible
 
 *** Variables ***
 ${TROSZKE_INACZEJ}   chcialem zeby mi wypisal tenze teks i zobacze co wyrzuci
 ${HOST}   localhost
 ${LOGIN}   kris
-${HASLO}   ${SPACE}
-
-
+${HASLO}   jakies haslo
+${ansible_become_password}   jakies haslo
+${ansible_user}   kris
 
 *** Test Cases ***
 kinder test dnia dzisiejszego
@@ -44,6 +45,27 @@ Test SSH localhost ktrory sprawdza przez funkcje ping i zaraz zobaczymy jak to d
 
    Zamknij polaczenia
 
+Tescik ktory liczy ile procesorow jest w komputerze
+   Nawiazuje polaczenie z serverem
+
+   Autoryzacja, wpisuje haslo, logujemy sie do komputera zewnetrzenego
+
+   Wpisuje /proc/cpuinfo/ i korzystam z grepa przy okazji
+
+   Zamknij polaczenia
+
+Przypadek testowy number8
+   ${xy}=   Setup   localhost
+   #Log To Console   ${xy}
+   #zaciagam z tej biblioteki xy i przypisuje do x1
+   ${x1}=   Get From Dictionary   ${xy}   ansible_facts
+   #Log To Console   ${x1}
+   #tworze nowa zmienna zaciagajac dane z x1
+   ${y1}=   Get From Dictionary   ${x1}   ansible_distribution
+   Log To Console   ${y1}
+   Should Be Equal   ${y1}   Ubuntu
+
+
 *** Keywords ***
 Wyswietlanie napisu
    [Arguments]   ${tekst_jakis}
@@ -60,8 +82,16 @@ Wpisuje uname -a, aby uzyskac informacje na temat uzyskanego polaczenia
    Should Contain   ${output}   GNU/Linux
 
 Wpisuje funkcje ping, aby uzyskac informacje na temat uzyskanego polaczenia
-   ${output}=   Execute Command   ping -c1 8.8.8.8
-   Should Not Contain   ${output}   100% packet loss
+#8semka na koncu to tak ma byc bo jak jest polaczenie w porzadku to nie wywala
+#tej informacji o 100% loss, bo nie ma jej komu odbierac, w kazdym razie dlatego
+#jest should not contain
+   ${oppp}=   Execute Command   ping -c1 8.8.8.8
+   Should Not Contain   ${oppp}   100% packet loss
+
+
+Wpisuje /proc/cpuinfo/ i korzystam z grepa przy okazji
+   ${kiko}=   Execute Command   cat /proc/cpuinfo | grep processor | wc -l
+   Should Be Equal   ${kiko}    1
 
 Zamknij polaczenia
    Close Connection
