@@ -2,3 +2,6 @@ log.html
 output.xml
 __pycache__
 report.html
+*.log
+*.png
+

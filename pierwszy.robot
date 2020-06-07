@@ -20,6 +20,8 @@ ${BROWSER}   Firefox
 ${ADRES URL}   https://poczta.wp.pl
 ${USER URL}   testerwsb_t1
 ${USER HASLO}   adam1234
+${USER URL ZLEE}   tester
+${USER HASLO ZLEE}   adam1
 ${POLE eMAIL}   //*[@id="login"]
 ${POLE HASLO}   //*[@id="password"]
 ${ZALOGUJ SIE}   //*[@id="btnSubmit"]
@@ -85,6 +87,13 @@ Wirtualna Polska, testowanie
    Sprawdzic czy poprawnie sie zalogowalem na strone poczty
    Zamknij wszystko
 
+Wirtualna Polska, testowanie ZLEE
+   [tags]   sel
+   Otwieram przegladarke
+   Wchodze na strone poczty wp.pl
+   Loguje sie do konta poczty wp ZLEE
+   Sprawdzic czy niepoprawnie
+   Zamknij wszystko
 
 *** Keywords ***
 Wyswietlanie napisu
