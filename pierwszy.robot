@@ -3,13 +3,18 @@ Library   pyta.py
 Library   SSHLibrary
 Library   Collections
 Library   Impansible
+Library   SeleniumLibrary
+
+
+#Selenium2Library to jest stare jakies, aktualnie po prostu SeleniumLibrary
+
 
 *** Variables ***
 ${TROSZKE_INACZEJ}   chcialem zeby mi wypisal tenze teks i zobacze co wyrzuci
 ${HOST}   localhost
 ${LOGIN}   kris
-${HASLO}   jakies haslo
-${ansible_become_password}   jakies haslo
+${HASLO}   jakies_haslo
+${ansible_become_password}   jakies_haslo
 ${ansible_user}   kris
 
 *** Test Cases ***
@@ -64,6 +69,14 @@ Przypadek testowy number8
    ${y1}=   Get From Dictionary   ${x1}   ansible_distribution
    Log To Console   ${y1}
    Should Be Equal   ${y1}   Ubuntu
+
+Wirtualna Polska, testowanie
+   1 Otwieram przegladarke
+   2 Wchodze na strone poczty wp.pl
+   3 Loguje sie do konta poczty wp
+   4 Wpisuje haslo
+   5 Sprawdzic czy poprawnie sie zalogowalem na strone poczty
+   6 Zamknij wszystko
 
 
 *** Keywords ***
