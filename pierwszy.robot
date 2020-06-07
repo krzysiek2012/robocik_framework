@@ -35,6 +35,15 @@ Test SSH localhost
 
     Zamknij polaczenia
 
+Test SSH localhost ktrory sprawdza przez funkcje ping i zaraz zobaczymy jak to dziala
+   Nawiazuje polaczenie z serverem
+
+   Autoryzacja, wpisuje haslo, logujemy sie do komputera zewnetrzenego
+
+   Wpisuje funkcje ping, aby uzyskac informacje na temat uzyskanego polaczenia
+
+   Zamknij polaczenia
+
 *** Keywords ***
 Wyswietlanie napisu
    [Arguments]   ${tekst_jakis}
@@ -49,6 +58,10 @@ Autoryzacja, wpisuje haslo, logujemy sie do komputera zewnetrzenego
 Wpisuje uname -a, aby uzyskac informacje na temat uzyskanego polaczenia
    ${output}=   Execute Command   uname -a
    Should Contain   ${output}   GNU/Linux
+
+Wpisuje funkcje ping, aby uzyskac informacje na temat uzyskanego polaczenia
+   ${output}=   Execute Command   ping -c1 8.8.8.9
+   Should Contain   ${output}   100% packet loss
 
 Zamknij polaczenia
    Close Connection
